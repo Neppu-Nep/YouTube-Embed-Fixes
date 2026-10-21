@@ -1,59 +1,48 @@
 # YouTube Embed Fixes
 
-This repository contains two userscripts to fix issues of YouTube embed videos.
+Userscripts that fix playback problems in embedded YouTube videos. Install either
+script, or both if you need both fixes.
 
-You can choose between two scripts depending on what you prefer:
-
-1. **`youtube-embed-fixes.user.js`**
-2. **`youtube-embed-fixes.simple.user.js`**
-
----
-
-## Features
-
-### `youtube-embed-fixes.user.js`
-This script include all the provided fixes for embedded YouTube videos:
-- **Membership Video Playback**: Fixes the issue where membership-only videos fail to play in embeds.
-- **Thumbnails and Titles**: Ensures that embedded videos display accurate thumbnails and titles.
-- **Resume Playback**: Allows videos to continue playback from where they left off, similar to the behavior on the YouTube website.
-  
-> **Note**: This script uses the `GM_xmlhttpRequest` userscript API to fetch additional data, which some users might prefer to avoid due to potential privacy concerns.
-
----
-
-### `youtube-embed-fixes.simple.user.js`
-A stripped-down version of the script, focusing solely on:
-- **Membership Video Playback**: Resolves the issue where membership-only videos do not play in embedded players.
-
-This script does not include thumbnail/title enhancements or playback resumption since it does not use `GM_xmlhttpRequest`.
-
----
+| Script | What it fixes | Install |
+| --- | --- | --- |
+| [YouTube Membership Embed Fix](youtube-membership-embed-fix.user.js) | Membership videos failing to load in embeds. Restores the thumbnail, title, channel information and available preview controls. | [Install](https://raw.githubusercontent.com/Neppu-Nep/YouTube-Embed-Fixes/main/youtube-membership-embed-fix.user.js) |
+| [YouTube Embed Audio Isolation](youtube-embed-audio-fix.user.js) | Other embeds losing sound and buffering after the first playing video is removed in affected Chromium browsers. | [Install](https://raw.githubusercontent.com/Neppu-Nep/YouTube-Embed-Fixes/main/youtube-embed-audio-fix.user.js) |
 
 ## Installation
 
-To use one of these scripts:
+1. Install [Tampermonkey](https://www.tampermonkey.net/).
+2. Click **Install** beside the script you want and confirm in Tampermonkey.
+3. Reload the page containing your YouTube embeds.
 
-1. **Install a User Script Manager**  
-   You'll need a user script manager to run these scripts in your browser. Popular options include:
-   - [Tampermonkey](https://www.tampermonkey.net/)
-   - [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)
-   - [Violentmonkey](https://violentmonkey.github.io/)
+### Chrome and Chromium-based browsers
 
-2. **Install the Script**  
-   Choose the script that best fits your needs:
-   - [Download `youtube-embed-fixes.user.js`](./youtube-embed-fixes.user.js)  
-   - [Download `youtube-embed-fixes.simple.user.js`](./youtube-embed-fixes.simple.user.js)
+Enable userscripts in your browser and select Tampermonkey's early-start mode:
 
-   And then click the "Raw" button to install the script.
----
+1. Open your browser's extensions page and select Tampermonkey's **Details**.
+   In Chrome 138 or newer, enable **Allow User Scripts**. On older Chrome
+   versions, enable **Developer mode** on the extensions page instead.
+2. Open **Tampermonkey → Dashboard → Settings**.
+3. Under **General**, set **Config mode** to **Advanced**.
+4. Under **Security**, set **Content Script API** to **UserScripts API Dynamic**.
+5. Save the settings and reload the page containing your embeds.
 
-## Known Issues
+Dynamic mode lets the scripts run at the start of page loading, before YouTube
+initializes its player. This is important for the membership fix.
 
-Sometimes, the embedded player may still show an error message even after applying the fix. This is usually due to failing the race condition between the script and the YouTube player. Two ways to mitigate this issue are:
+See Tampermonkey's [userscript permission guide](https://www.tampermonkey.net/faq.php#Q209)
+and [Content Script API documentation](https://www.tampermonkey.net/documentation.php?q=content_script_api).
 
-1. **Refresh the Page**: Hard refresh the page (Ctrl + F5) to reload the page.
-2. **Change Userscript settings**: 
-    - Tampermonkey:
-        - For Tampermonkey, Go to settings > "General" section, set Config mode to "Advanced". 
-        - Then go to the "Security" section, set Content Script API to "Userscripts API Dynamic".
-        - Save the settings and reload the page.
+## Usage
+
+After setup, both scripts work automatically and can run together.
+
+The membership fix still requires a YouTube account with access to the video.
+It does not bypass membership restrictions. Available preview controls depend on
+YouTube's player layout.
+
+If another userscript already provides the same fix, disable the duplicate.
+
+## Updates
+
+Use Tampermonkey to check for updates. Reload pages containing embeds after
+updating, enabling or disabling either script.
